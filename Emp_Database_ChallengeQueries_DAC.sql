@@ -51,14 +51,15 @@ select * from r_titles2
 
 
 --This is the one to export. looks a little diff than the book but oh well
-select title, count(distinct emp_no) as "# retirees" 
-into r_titles5
+select title, count(distinct emp_no) as "num_retirees" 
+into r_titles7
 from unique_titles
 group by title
-order by "# retirees" desc
+order by "num_retirees" desc
 
-select * from r_titles5
+select sum(r_titles7.num_retirees) from r_titles7
 
+select * from r_titles7
 
 --for D2 I'm gonna refactor my building blocks from before
 select emp_no, first_name, last_name, birth_date 
@@ -85,7 +86,19 @@ where e.birth_date between '1965-01-01' and '1965-12-31'
 order by emp_no
 
 select * from mentor_elig
---shit. forgot the birthday filter.
+--dang. forgot the birthday filter.
 
 select * from mentor_elig3
 --third time's the charm
+
+select count(emp_no) from mentor_elig3
+
+select count(emp_no) from employees
+
+select title, count(distinct emp_no) as "num_mentees" 
+into m_titles1
+from mentor_elig3
+group by title
+order by "num_mentees" desc
+
+select * from m_titles1
